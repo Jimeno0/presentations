@@ -233,8 +233,6 @@ https://github.com/tomwayson/web-appbuilder-bootstrap
 
 --
 
---
-
 ###JAVASCRIPT
 
 Ciclo de vida del widget
@@ -255,6 +253,8 @@ Ciclo de vida del widget
 
 ###JAVASCRIPT
 
+Startup: Creamos capas gráficas y simbologías
+
 ```javascript
    	startup: function() {
 	      this.inherited(arguments);
@@ -267,6 +267,167 @@ Ciclo de vida del widget
     	},
 
 ```
+
+--
+
+###JAVASCRIPT
+
+onOpem: Infowindow y funcion para pintar los puntos
+
+```javascript
+	
+	onOpen: function(){
+        var infoWindow = new InfoWindowLite(null, domConstruct.create("div", null, null, this.map.root));
+        infoWindow.startup();
+        this.map.setInfoWindow(infoWindow);
+        this.map.infoWindow.resize(200, 80);
+
+        this.DrawPoints = this.map.on("click",lang.hitch(this,clickPuntos));
+
+		function clickPuntos(e){
+			if (this.tipoPunto == "puntoIni") {
+	            puntoInicio = e.mapPoint;
+	            var inicioGraphic = new Graphic(puntoInicio,this.pInicioSymbol);
+	            this.graphicPuntos.add(inicioGraphic);
+	            var feature1 = [];
+	            feature1.push(inicioGraphic);
+	            featureSetInicio = new FeatureSet();
+	            featureSetInicio.features = feature1; 
+
+	            ...
+		};
+          this.DrawPoints;
+     },
+
+```
+
+--
+
+###JAVASCRIPT
+
+onCLose: Evitamos que pinte elemento y limpiamos las capas gráficas
+
+```javascript
+	onClose: function(){
+        this.tipoPunto = null;
+        this.graphicPuntos.clear();
+        this.graphicPuntoFin.clear();
+        this.graphicLineas.clear();
+    },
+
+```
+
+--
+
+###JAVASCRIPT
+
+Funciones definidas:
+ * Función que define los parámetros del tipo de rta
+ * Función que define los parámetros del tipo de punto dibujado
+ * Función para borrar los puntos dibujados
+
+```javascript
+	funcionParamBici:function(){
+        this.tipoRutaParam = "Bicicleta";
+    },
+    ...
+    funcionParamRun:function(){
+        this.trafficRadio.checked = false;
+        this.tipoRutaParam = "Run";
+    },
+    funcionCapaInicio:function(){
+        this.tipoPunto = "puntoIni";
+    },
+    ...
+    funcionBorrar:function(){
+        this.inherited(arguments);
+        this.graphicPuntos.clear();
+    },
+
+```
+
+--
+
+###JAVASCRIPT
+
+Funciones definidas:
+ * Fución para el cálculo de la ruta
+
+```javascript
+	this.tipoPunto = null;
+    this.graphicLineas.clear();
+    ...
+    var radio = this.trafficRadio.checked;
+	if (radio == true) {
+	    this.tipoRutaParam = "BiciSinTrafico";
+	};
+	var inputParameters = {
+        "TipoRuta": this.tipoRutaParam,
+        "PuntoInicio": featureSetInicio,
+        "PuntoDestino": featureSetFin
+	};
+	var GProutesUrl = "http://localhost:6080/arcgis/rest/services/Proyecto/CalculoRutas7/GPServer/Calculo%20de%20rutas";
+	var gp = new Geoprocessor(GProutesUrl);
+	gp.setOutSpatialReference( {wkid: 102100});
+	gp.submitJob(inputParameters,callBack);
+
+```
+
+--
+
+###JAVASCRIPT
+
+Funciones definidas:
+ * Fución para el cálculo de la ruta
+
+```javascript
+    function callBack(results){ 
+		gp.getResultData(results.jobId,"Ruta",resultsCallback);
+		function resultsCallback(featureRuta){
+	        ruta = featureRuta.value.features[0];
+	        var sls = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([255,0,0]),4);
+	        mapa.setExtent(ruta.geometry.getExtent());
+	        var rutaGraphic = new Graphic(ruta.geometry,sls,ruta.attributes,infoTemplate);
+	        graphicLineas.add(rutaGraphic);                                     
+		};
+	};
+
+```
+
+--
+
+###JAVASCRIPT
+
+Funciones definidas:
+ * Fución para el cálculo de la ruta
+
+```javascript
+    infoTemplate = new InfoTemplate();
+	infoTemplate.setTitle("<strong>Información de ruta</strong>");
+	infoTemplate.setContent("hello");
+	infoTemplate.setContent(getTextContent);
+    function getTextContent(graphic){
+
+	    if (graphic.attributes.Total_SegundosBici != undefined) {
+	      var totalSegundos = graphic.attributes.Total_SegundosBici;
+	    }else if (graphic.attributes.Total_SegundosRun != undefined) {
+	      var totalSegundos = graphic.attributes.Total_SegundosRun;
+	    }else if (graphic.attributes.Total_SegundosAndando != undefined) {
+	      var totalSegundos = graphic.attributes.Total_SegundosAndando;
+	    };
+	    var longitud = Math.round(graphic.attributes.Total_Length);
+	    var minutosDecimales = totalSegundos/60;
+	    var minutos = parseInt(minutosDecimales);
+	    var segundos = Math.round((minutosDecimales - minutos)*60); 
+
+	    return "<b>Distancia:</b> " + longitud + " m <br><b>Tiempo:</b> " + minutos + "'  " + segundos + "''";
+    };
+
+```
+
+
+
+
 
 
 
@@ -326,6 +487,11 @@ var text = 'Hello world';
 ## Questions?
 
 Contact info
+
+* GitHub : [Jimeno0](https://github.com/Jimeno0)
+* Twitter: [Jimeno0](https://twitter.com/jimeno0)
+* Linkedin: [Carlos Pérez Jimeno](https://www.linkedin.com/in/carlos-perez-jimeno-087b3390?trk=nav_responsive_tab_profile_pic)
+
 
 ---
 
