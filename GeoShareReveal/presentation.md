@@ -87,11 +87,11 @@ Proyecto Final de Master de Esri 2016
 
 ---
 
-##Desarrollo de la app
+#Desarrollo de la app
 
 ---
 
-###Objetivos
+##Objetivos
 
 * Aplicación sencilla
 * Fácil de usar
@@ -99,7 +99,7 @@ Proyecto Final de Master de Esri 2016
 
 ---
 
-###Integración de Bootstrap en Web AppBuilder
+##Integración de Bootstrap en Web AppBuilder
 
 
 https://github.com/tomwayson/web-appbuilder-bootstrap
@@ -108,7 +108,7 @@ https://github.com/tomwayson/web-appbuilder-bootstrap
 
 --
 
-####Archivos necesarios
+###Archivos necesarios
 
 * index.html
 * init.js
@@ -117,14 +117,14 @@ https://github.com/tomwayson/web-appbuilder-bootstrap
 
 --
 
-####Requires
+###Requires
 
 ![Bootstrap on require](images/BootstrapOnRequire.png)
 
 
 ---
 
-###Simplificación de la app
+##Simplificación de la app
 
 >* A través del config.json
 	* Eliminación de widgets que no utilizamos
@@ -138,7 +138,7 @@ https://github.com/tomwayson/web-appbuilder-bootstrap
 
 --
 
-###Otras ediciones de la App
+##Otras ediciones de la App
 
 >Para hacer cualquier cambio de la aplicación podemos identificar el elemento a traves de la consola de google chrome y luego viendo donde se encuentra el elemento aplicarle los cambios que consideremos necesarios
 
@@ -146,9 +146,9 @@ https://github.com/tomwayson/web-appbuilder-bootstrap
 
 ---
 
-###Widgets
+#Widgets
 
-####Objetivo apliciación social
+##Objetivo apliciación social
 
 * Dieño:
 	* Sencillo
@@ -157,18 +157,27 @@ https://github.com/tomwayson/web-appbuilder-bootstrap
 
 ---
 
-###Widgets de geoprocesamiento
+##Widgets de geoprocesamiento
 
 * Cálculo de rutas
 * Busqeda de puntos de interés cercanos
 
 --
 
-#### Cálculo de rutas
+###Cálculo de rutas
 
 ![Widget rutas](images/rutasWidget.png)
 
 --
+
+###Parámetros de entrada:
+
+* Modo de viaje
+* Punto de inicio
+* Punto de destino
+
+--
+
 
 ###HTML
 
@@ -425,6 +434,111 @@ Funciones definidas:
 
 ```
 
+--
+
+###Búsqueda de puntos de interés cercanos
+
+![Widget búsqueda POIs](images/PoisWidget.png)
+
+--
+
+###Parámetros de entrada:
+
+* Modo de viaje
+* Tipo de Puntos de interés
+* Tiempo de viaje
+* Ubicación
+
+---
+
+##Widget de edición
+
+![Widget edición](images/editionWidget.png)
+
+--
+
+##Objetivo:
+
+* Tener todo en al misma app
+* Restringir acceso solo a usuarios registrados
+
+--
+
+##Todo en la misma app
+
+>* ###Problema:
+	 Para poder utilizar el widget de edición necesario tener las capas editables en el Web map del que embebe. Si se viesen todas las rutas de los usuarios en el mapa sería confuso.
+
+>* ###Solución:
+	 Apagar las capas editables a menos que se abra el widget de edición.
+
+--
+
+##Todo en la misma app
+
+* Apagar las capas editables de inicio
+
+jimu.js --> MapManager.js
+
+![Apagar capas editables](images/apagarCapas.png)
+
+* Mostrar capas editables
+
+	>* Funcion onOpen .show()
+	>* Funcion onCLose .hide()
+
+--
+
+##Restringir acceso solo a usuarios registrados
+
+###html
+
+```html
+<div id="edit"style="width:100%; height:100%; min-width:280px;min-width:240px;">
+    <div id="usuarioYpassDiv">
+          <label for="usuarioInput">Inicia sesion para poder editar</label>
+          <input id='usuarioInput' type="text"class = "form-control" placeholder="Usuario">
+          <br>
+          <input id='pssInput' type="text"class = "form-control" placeholder="Contraseña">
+          <p id="wrongPass"></p>
+          <br>
+          <button type="button" class="btn btn-primary" data-dojo-attach-event="onclick:funcionLogearse">Aceptar</button>
+    </div>
+```
+
+--
+
+##Restringir acceso solo a usuarios registrados
+
+###javascript
+
+```javascript
+
+	funcionLogearse:function(){
+      this.inherited(arguments);
+      this.userPass = ["Carlos","1234"],["Juli","123"]];
+      var usuario = usuarioInput.value;
+      var pass = pssInput.value;
+        for (var i = 0; i < this.userPass.length; i++) {
+          if (this.userPass[i][0] == usuario && this.userPass[i][1] == pass) {
+            document.getElementById("usuarioYpassDiv").style.display = "none";
+          }else{
+            document.getElementById("wrongPass").innerHTML = ("Nombre de usuario o contraseña incorrectos");
+          };
+        };
+    },
+
+
+```
+
+--
+
+
+
+
+
+
+
 
 
 
@@ -464,13 +578,6 @@ Funciones definidas:
 
 ---
 
-<!-- .slide: class="section" -->
-
-## List
-* List item
-	* List sub-item
-
----
 
 <!-- .slide: class="section" -->
 
