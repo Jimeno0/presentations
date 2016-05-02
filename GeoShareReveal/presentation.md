@@ -531,7 +531,44 @@ jimu.js --> MapManager.js
 
 ```
 
+---
+
+##Widget de leyenda
+
+![Widget leyenda](images/widgetsColocados.png)
+
 --
+
+###Widget de leyenda
+
+* off-panel
+	* Tres clasificaciones
+	* Sinplificar botones
+
+--
+
+###manifest.json
+
+```json
+  "properties": {
+  "inPanel": false
+  }
+
+```
+
+--
+
+###css
+
+```css
+
+.esriLegendLayer{
+  color: white;
+  font-size: 12px;
+  background-color: rgba(180, 180, 180, 0.6);
+}
+
+```
 
 
 
