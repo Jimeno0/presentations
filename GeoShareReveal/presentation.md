@@ -570,6 +570,14 @@ jimu.js --> MapManager.js
 
 ```
 
+---
+
+##Widget de consultas
+
+![Widget consultas](images/consultasWidget.png)
+
+
+--
 
 
 
