@@ -574,12 +574,14 @@ jimu.js --> MapManager.js
 
 ##Widget de consultas
 
+[Demo](http://jimeno0.github.io/TableQueryWidgetDemoApp/index.html)
+
 ![Widget consultas](images/consultasWidget.png)
 
 
 --
 
-
+##Widget de consultas
 
 
 
