@@ -583,58 +583,395 @@ jimu.js --> MapManager.js
 
 ##Widget de consultas
 
+* Código del widget
+* Código del settings
 
+--
 
+###HTML widget
 
+* Contenido dinámico
+* Bootstrap
 
+```html
 
+<div>
+  <br>
+    <div id="queryBtnsDiv" class="btn-group" role="group"></div>
+  <br>
+  <div>
+    <table  class="table table-condensed table-hover ">
+      <thead  id="tableHeader">
+      </thead>
+      <tbody id="tableContent">
+      <tbody>
+    </table>
+  </div>
+</div>
 
+```
 
+--
 
+###javaScript Widget
 
+* Generar desplegables
+* Generar cabecera y contenido de la tabla
+* Consultas
+* Función on click
 
+--
 
+###javaScript Widget
 
+####On startup
 
+* Botones depegables
+* Cabecera de la tabla
 
+--
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
----
-
-
-
-<!-- .slide: class="section" -->
-
-## List
-* List item
-	* List sub-item
-
----
-
-
-<!-- .slide: class="section" -->
-
-## Code
 ```javascript
-var pi = 3.14;
-var text = 'Hello world';
+startup: function() {
+        //get config variables
+        tableconfigParams = this.config.inPanelVar.params.tableConfigParams;
+        queyconfigParams = this.config.inPanelVar.params.queryConfigParams;
+        //Set table headers
+        var header = document.getElementById("tableHeader").insertRow(0);
+        for (i = 0; i < tableconfigParams.length; i++) {
+          var contenidoCabecera = tableconfigParams[i].header;
+          var newCell = header.insertCell(i);
+          newCell.innerHTML = contenidoCabecera;
+        };
+        //Set query dropdown menus
+        for (i = 0; i < queyconfigParams.length; i++) {
+          var btnName = queyconfigParams[i].buttonName;
+          var dropDiv = domConstruct.create("div", {
+            'class':"dropdown btn-group"
+            }, "queryBtnsDiv");
+          var queryBtn = domConstruct.create("button", {
+            class:"btn btn-default dropdown-toggle",
+            'innerHTML':btnName,
+            'data-toggle':"dropdown",
+            'aria-haspopup':"true",
+            'aria-expanded':"false"
+              }, dropDiv);
+          var spanBtn = domConstruct.create("span", {class:"caret"}, queryBtn);
+          var ulBtn = domConstruct.create("ul", {class:"dropdown-menu"}, dropDiv);
+          for (n = 0; n < queyconfigParams[i].liParamsArray.length; n++) {
+            var liName = queyconfigParams[i].liParamsArray[n].liName;
+            var liQuery = queyconfigParams[i].liParamsArray[n].query;
+            var liBtn = domConstruct.create("li", {}, ulBtn);
+            var aLiBtn = domConstruct.create("a", {
+              'innerHTML':liName,
+              'onClick' : "funcionQuery('" + liQuery + "');"
+              }, liBtn);
+            };
+          };
+      },
+
+
+```
+
+--
+
+###javaScript Widget
+
+####On open
+
+* contenido de la tabla
+* Función Consultas
+* Función on click
+
+--
+
+###javaScript Widget
+
+Contenido de la tabla 
+
+```javascript
+
+function addColumns(fsResult){
+  var features = fsResult.features;
+  //
+  arrayUtils.forEach(features, function(feature){
+    if (feature.attributes["OBJECTID"]) {
+      var targetId = "OBJECTID="+feature.attributes["OBJECTID"];
+
+    } else if (feature.attributes["objectid"]) {
+      var targetId = "objectid="+feature.attributes["objectid"]
+    };
+    var featureRow = domConstruct.create("tr", {'onClick' : "funciOnClick('" + targetId + "');"}, "tableContent");
+    for (i = 0; i < tableconfigParams.length; i++) {
+      var attName = tableconfigParams[i].fieldName;
+      var contenidoRow = feature.attributes[attName];
+
+      var newCell = featureRow.insertCell(i);
+      newCell.innerHTML = contenidoRow;
+    };
+  });
+};
+
+```
+
+--
+
+###javaScript Widget
+
+Función de las consultas
+
+```javascript
+
+	function funcionQuery2(e){
+	  var node = document.getElementById('tableContent');
+	  while (node.hasChildNodes()) {
+	    node.removeChild(node.firstChild);
+	  };
+	  var query = new Query();
+	  query.where = e;
+	  query.outFields = OutFieldsArray;
+	  query.returnGeometry = true;
+	  var queryTask = new QueryTask(serviceUrl);
+	  queryTask.execute(query,addColumns2);
+	};
+
+```
+
+--
+
+###javaScript Widget
+
+Función de las consultas
+
+```javascript
+  function drawSelected(fs){
+       
+    for (i = 0; i < fs.features.length; i++) {
+      var  featureSelected = fs.features[i];
+      if (featureSelected.geometry.type == "point" ||featureSelected.geometry.type == "multiPoint") {
+        var simbologia = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_SQUARE, 10,
+          new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+          new Color([255,0,0]), 1),
+          new Color([0,255,0,0.25])
+        );
+        that.map.centerAndZoom(featureSelected.geometry);
+      } else if (featureSelected.geometry.type == "lineString" ||featureSelected.geometry.type == "multiLineString") {
+        var simbologia = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+          new Color([255,0,0]),4
+        );
+        that.map.setExtent(featureSelected.geometry.getExtent());
+      }else if (featureSelected.geometry.type == "polygon" ||featureSelected.geometry.type == "multiPolygon") {
+        var simbologia = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+          new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT,
+          new Color([255,0,0]), 2),new Color([255,255,0,0.25])
+        );
+        that.map.setExtent(featureSelected.geometry.getExtent());
+      };
+      var graphicElemnts = new Graphic(featureSelected.geometry,simbologia,featureSelected.attributes);
+      that.map.graphics.add(graphicElemnts);
+    };
+  };
+```
+
+--
+
+###Settings del widget de consultas
+
+* Petición Ajax con Dojo
+* Crear html
+* getConfig (Almacenar parámetros)
+* setConfig (parámetros durante setting)
+
+PANTALLAZOS FALTAN
+
+--
+
+###Petición Ajax empleando Dojo
+
+* Añadir propiedad al widget
+
+```html
+<input
+    type="text"
+    data-dojo-type="dijit/form/ValidationTextBox"
+    required="true"
+    placeHolder="http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/0"
+    data-dojo-attach-point="serviceUrl"
+    data-dojo-props='style:{width:"520px"}'
+    value ="http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/0"
+/>
+```
+
+--
+
+###Petición Ajax empleando Dojo 
+
+* Petición
+
+```javaScript
+var urlJson = this.serviceUrl.value+"?f=json";
+	request(urlJson, {
+	  headers: {
+	    "X-Requested-With": null
+	  }
+	}).then(
+	  function(text){
+	    var jsonObjet = JSON.parse(text);
+	   that._counters.fields = jsonObjet.fields;
+	   that.functAddRow();         
+	  },
+	  function(error){
+	    console.log("An error occurred: " + error);
+	  }
+	);
+```
+
+--
+
+####Creación de html dinámico con Dojo
+
+* Inputs, labels y select
+
+```javascript
+var elementId = "id"+this._counters.counter;
+var slectId = "select"+this._counters.counter;
+var row = domConstruct.toDom('<tr id="'+elementId+'">\
+                                <td>\
+                                  Column header:\
+                                </td>\
+                                <td>\
+                                  <input>\
+                                </td>\
+                                <td>\
+                                  Column header:\
+                                </td>\
+                                <td>\
+                                  <select class="selectClass">\
+                                  </select>\
+                                </td>\
+                                <td class="btnDeleteClass">\
+                                </td>\
+                              </tr>');
+```
+
+--
+
+####Creación de html dinámico con Dojo
+
+* Inputs, labels y select
+
+```javascript
+var nl2 = query(".selectClass",row);
+	for (i = 0; i < this._counters.fields.length; i++) { 
+	  var fieldOption =  domConstruct.toDom("<option>\
+	                                           "+this._counters.fields[i].name+"\
+	                                         </option>");
+	  nl2[0].appendChild(fieldOption);
+	};               
+
+```
+
+--
+
+####Creación de html dinámico con Dojo
+
+* Select options
+
+```javascript
+
+var nl = query(".btnDeleteClass",row);
+	var btnDelete =  domConstruct.toDom("<button>\
+	                                       Delete\
+	                                     </button>");
+
+	on(btnDelete, "click", functDeleteRow);
+	this._counters.counterQMenu++;
+	document.getElementById("columnsSettings").appendChild(row);
+	nl[0].appendChild(btnDelete);
+```
+
+--
+
+####Establecer los parámetros
+
+* getConfig
+
+	* Parámetros del servicio
+	* Parámetros de la tabla
+	* Parámetros de los desplegables
+
+--
+
+####Parámetros de Servicio y tabla
+
+```javascript
+var options = this.config.inPanelVar.params;
+    options.serviceUrl = this.serviceUrl.get("value");
+    options.tableConfigParams = new Array();
+    options.queryConfigParams = new Array();
+    // Save header and content for each column
+    for (i = 0; i < document.getElementById("columnsSettings").children.length; i++) {
+      var rowParams = document.getElementById("columnsSettings").children[i];
+      var rowHeaderChild = rowParams.children[1];
+      var rowFieldChild = rowParams.children[3];
+      var headerName = rowHeaderChild.children[0].value;
+      var fieldName = rowFieldChild.children[0].value;
+      tableParams[i] = {
+        header:headerName,
+        fieldName:fieldName
+      };
+    options.tableConfigParams[i] = tableParams[i];
+     };
+```
+
+--
+
+####Parámetros de menús desplegables
+
+```javascript
+for (i = 0; i < document.getElementById("querySettings").children.length; i++) {
+  var rowParams = document.getElementById("querySettings").children[i];
+  var rowHeaderChild = rowParams.children[1];
+  var headerName = rowHeaderChild.children[0].value;
+  var  queryliParams = new Array();
+  //Go over the table and save each query and query label for each dropdown button
+  for (n = 0; n < rowParams.children[4].children[0].children.length; n++) {
+    var rowLi = rowParams.children[4].children[0].children[n];
+    var rowNameli = rowLi.children[1].children[0].value;
+    var rowQuery = rowLi.children[3].children[0].value;
+    queryliParams[n] = {
+      liName:rowNameli,
+      query:rowQuery
+    };
+  };
+  queryParams[i] = {
+    buttonName:headerName,
+    liParamsArray:queryliParams
+  };
+  options.queryConfigParams[i] = queryParams[i];
+};
+```
+
+--
+
+####setConfig
+
+En caso de tener la configuración a medias, grandes proyectos
+
+```javascript
+setConfig: function(config) {
+	this.config = config;
+	var options = config.inPanelVar.params;
+	// Load service URL if exisits
+	if (options && options.serviceUrl) {
+	    this.serviceUrl.set('value', options.serviceUrl);
+	};
+	return this.config;
+	},
 ```
 
 ---
+
 
 <!-- .slide: class="questions centered" -->
 
