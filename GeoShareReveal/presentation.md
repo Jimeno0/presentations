@@ -62,9 +62,6 @@ Proyecto Final de Master de Esri 2016
 * Cálculo del tiempo por tramo en bici
 * Creación de la feature class de los puntos de interés
 
---
-
-
 
 ---
 
@@ -583,8 +580,32 @@ jimu.js --> MapManager.js
 
 ##Widget de consultas
 
-* Código del widget
+* Código del widget: On open
+
+	![onOpen screen](images/onOpenQueryWidget.png)
+
+--
+
+##Widget de consultas
+
+* Código del widget: On click
+
+	![onClick screen](images/onRowClickQueryWidget.png)
+
+--
+
+##Widget de consultas
+
+* Código del widget: Querys dropdown menus 
+
+	![dropdown menus](images/dropdownQueryWidget.png)
+
+--
+
+##Widget de consultas
+
 * Código del settings
+	![Settings screen](images/settingConfigQieryWidget.png)
 
 --
 
