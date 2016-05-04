@@ -52,16 +52,35 @@ Proyecto Final de Master de Esri 2016
 
 ---
 
-<!-- .slide: class="section" data-transition="fade"-->
+<!-- .slide: class="section" -->
 
 ##Tratamiento de datos previos a la realización del Network
 
 * Población de la red
+	* Digitalizar tramos que faltan apunyandonos imagenes satélite
 * Correcciones topológicas
-* Cálculo de los desniveles por tramo
-* Cálculo del tiempo por tramo en bici
-* Creación de la feature class de los puntos de interés
+	* Creación del Dataset
+	* Creación de Topología dentro del dataset que nos detecte si hay puntos colgantes
+* Definición de la clasificación
+	* Jerearquia
+	* Evitar conflictos
+	* Carreteras, caminos y trialeras
 
+--
+
+<!-- .slide: class="section" -->
+
+##Tratamiento de datos previos a la realización del Network
+
+* Cálculo de los desniveles por tramo y tiempo por tramo en bici
+	* Apoyandonos en el MDT asignamos coordenadas Z a los puntos final e inicial de cada tramo
+	* Desnivel Zf- Zi
+	* Clasificación en rangos según Desnivel
+	* Asignación de Velocidad según inclinación
+* Creación de la feature class de los puntos de interés
+	* Descarga con la OSM tool para ArcGIS
+	* Estuido POIs útiles
+	* Selcción por atributos 
 
 ---
 
@@ -70,17 +89,75 @@ Proyecto Final de Master de Esri 2016
 
 ##Creacion del Network
 
+* Definimos atributos:
+	* Coste
+	* Restricción
+	* Jerarquía 
+
+![network](images/network.png)
+
 ---
 
 ##Geoprocesamientos
+
+* Scripts de python
+	* Cáclulo de rutas
+	* Busqueda de POIs cercanos
+
+--
+
+###Cálculo de rutas
+
+* Cuatro herramientas:
+	* Make route layer
+	* Add locations
+	* Solve
+	* Copy Features
+* Get parámeter/set parámeter
+
+--
+
+###Cálculo de rutas
+
+* Introducir el script en una toolbox
+
+![ScriptToolbx](images/ScriptToolbx.png)
+
+--
+
+###Búsqueda de POIs cercanos
+
+* Cuatro herramientas:
+	* Make route layer
+	* Add locations
+	* Solve
+	* Make feature layer (consulta SQL tipo POIs)
+	* Copy Features (Con selección por localización)
+* Get parámeter/set parámeter 
 
 ---
 
 ##Arquitectura y versionado
 
+* BBDD Corporativa
+	* Create Enterprise GDB
+	* Versionado: Controlar ediciones
+		* Versión default: Controla Ediciones
+		* Versión Publica: Sobre la que se publicará el servicio
+	* SQL Server Manager
+		* Crear Usuario con permisos de edicioón
+		* Conectado a la versión pública
+
 ---
 
 ##Publicación de los servicios
+
+* ArcGIS Server
+* Desde la conexión Pública
+* Capas editables publicadas como Feature Service
+* Capas de información como Map Service
+* Herramientas de geoprocesos publicados como GPService
+	* Desde la ventana de resultados
 
 ---
 
@@ -1001,8 +1078,8 @@ setConfig: function(config) {
 Contact info
 
 * GitHub : [Jimeno0](https://github.com/Jimeno0)
-* Twitter: [Jimeno0](https://twitter.com/jimeno0)
 * Linkedin: [Carlos Pérez Jimeno](https://www.linkedin.com/in/carlos-perez-jimeno-087b3390?trk=nav_responsive_tab_profile_pic)
+* Twitter: [Jimeno0](https://twitter.com/jimeno0)
 
 
 ---
