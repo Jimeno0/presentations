@@ -685,6 +685,12 @@ jimu.js --> MapManager.js
 
 ![Widget consultas](images/consultasWidget.png)
 
+--
+
+##Widget de consultas
+
+* Estableciendo los settings
+	![initConfigQueryWidget](images/initConfigQueryWidget.png)
 
 --
 
@@ -775,7 +781,7 @@ var row = domConstruct.toDom('<tr id="'+elementId+'">\
 
 ####Creación de html dinámico con Dojo
 
-* Inputs, labels y select
+* Select options
 
 ```JavaScript
 var nl2 = query(".selectClass",row);
@@ -792,7 +798,7 @@ var nl2 = query(".selectClass",row);
 
 ####Creación de html dinámico con Dojo
 
-* Select options
+* Botones (borrar)
 
 ```JavaScript
 
@@ -819,7 +825,7 @@ var nl = query(".btnDeleteClass",row);
 
 --
 
-####Parámetros de Servicio y tabla
+####Parámetros del servicio y de la tabla
 
 ```JavaScript
 var options = this.config.inPanelVar.params;
