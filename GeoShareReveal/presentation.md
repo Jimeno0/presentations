@@ -9,7 +9,7 @@ Slides : [bit.ly/GeoSharePPT](http://bit.ly/GeoSharePPT)
 
 ---
 
-<!-- .slide: class="title" -->
+<!-- .slide: class="section" -->
 
 
 
@@ -23,7 +23,7 @@ Slides : [bit.ly/GeoSharePPT](http://bit.ly/GeoSharePPT)
 
 >Presento la primera aplicación que desarrollé con apenas dos meses de conocimiento en programación.
 
-> Anímate a desarrollar! :)
+>Anímate a desarrollar! :)
 
 
 
