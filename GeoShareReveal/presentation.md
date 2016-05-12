@@ -17,7 +17,7 @@ Slides : [bit.ly/GeoSharePPT](http://bit.ly/GeoSharePPT)
 
 
 
->Estudié Ingeniería Técnica porque me apasionan los mapas. Ahí descubrí el GIS y las posibilidades que ofrecía. Cursé el Master GIS de Esri España 2016 y desde entonces trato de aprender todo lo posible del geodesarrollo.
+>Estudié Ingeniería de Topografía porque me apasionan los mapas. Ahí descubrí el GIS y las posibilidades que ofrecía. Cursé el Master GIS de Esri España 2016 y desde entonces trato de aprender todo lo posible del geodesarrollo.
 
 
 
@@ -1032,19 +1032,19 @@ function addColumns(fsResult){
 
 ###JavaScript Widget
 
-Función de las consultas
+Función on click
 
 ```javascript
 
 function funciOnClick2(e){
-          that.map.graphics.clear();
-          var query2 = new Query();
-          query2.where =e;
-          query2.outFields = OutFieldsArray;
-          query2.returnGeometry = true;
-          query2.outSpatialReference = {wkid: 102100};
-          var queryTask2 = new QueryTask(serviceUrl);
-          queryTask2.execute(query2,drawSelected);
+  that.map.graphics.clear();
+  var query2 = new Query();
+  query2.where =e;
+  query2.outFields = OutFieldsArray;
+  query2.returnGeometry = true;
+  query2.outSpatialReference = {wkid: 102100};
+  var queryTask2 = new QueryTask(serviceUrl);
+  queryTask2.execute(query2,drawSelected);
  };
  ```
 
@@ -1092,18 +1092,18 @@ Función de las consultas
 
 ```javascript
 
-  function funcionQuery2(e){
-    var node = document.getElementById('tableContent');
-    while (node.hasChildNodes()) {
-      node.removeChild(node.firstChild);
-    };
-    var query = new Query();
-    query.where = e;
-    query.outFields = OutFieldsArray;
-    query.returnGeometry = true;
-    var queryTask = new QueryTask(serviceUrl);
-    queryTask.execute(query,addColumns2);
+function funcionQuery2(e){
+  var node = document.getElementById('tableContent');
+  while (node.hasChildNodes()) {
+    node.removeChild(node.firstChild);
   };
+  var query = new Query();
+  query.where = e;
+  query.outFields = OutFieldsArray;
+  query.returnGeometry = true;
+  var queryTask = new QueryTask(serviceUrl);
+  queryTask.execute(query,addColumns2);
+};
 
 ```
 
