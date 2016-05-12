@@ -5,6 +5,8 @@ Proyecto Final de Master de Esri 2016
 
 [https://github.com/Jimeno0/PFM-GeoShare/](https://github.com/Jimeno0/PFM-GeoShare/)
 
+Slides : [http://bit.ly/GeoSharePPT](http://bit.ly/GeoSharePPT)
+
 ---
 
 <!-- .slide: class="section" -->
@@ -19,19 +21,15 @@ Proyecto Final de Master de Esri 2016
 
 ## Material empleado
 
-* ArcMap 10.3
-	* Desarrollo del proyecto y tratamiento de datos
-* PyScripter
-	* Geoprocesamientos
-* SQL Server
-	* Gestionar permisos en la BBDD Enterprise
-* ArcGIS Server Manager
-	* Publicación de servicios
-* ArcGIS Online
-	* Creación de los Web Maps
-	*Publicación de servicios
-* Web AppBuilder for developers & Sublime Text 3
-	* Creación de la aplicación web
+* Plataforma ArcGIS
+	* ArcMap 10.3: Desarrollo del proyecto y tratamiento de datos
+	* ArcGIS Server Manager: Publicación de servicios
+	* ArcGIS Online: Creación de los Web Maps
+	* Web AppBuilder for developers: Creación de la plataforma
+*SQL Server
+ 	*gestionar permisos en la BBDD Enterprise
+* PyScripter: Desarrollo geoprocesos en python
+* Sublime Text 3: Desarrollo de la aplicación
 
 ---
 
@@ -46,7 +44,7 @@ Proyecto Final de Master de Esri 2016
 
 	* Pluggin para ArcMap: https://www.arcgis.com/home/item.html?id=75716d933f1c40a784243198e0dc11a1
 
-* MDT
+* MDT (Modelo Digital de Elevaciones)
 	
 	* http://centrodedescargas.cnig.es/CentroDescargas/buscadorCatalogo.do?codFamilia=02107
 
@@ -57,14 +55,14 @@ Proyecto Final de Master de Esri 2016
 ##Tratamiento de datos previos a la realización del Network
 
 * Población de la red
-	* Digitalizar tramos que faltan apunyandonos imagenes satélite
+	* Digitalizar tramos que faltan apoyandonos en imágenes satélite
 * Correcciones topológicas
 	* Creación del Dataset
-	* Creación de Topología dentro del dataset que nos detecte si hay puntos colgantes
+	* Creación de la topología dentro del dataset que nos detecte si hay puntos colgantes
 * Definición de la clasificación
-	* Jerearquia
+	* Jerarquia
 	* Evitar conflictos
-	* Carreteras, caminos y trialeras
+	* Carreteras, caminos y trialeras(Vías de descenso)
 
 --
 
@@ -74,7 +72,7 @@ Proyecto Final de Master de Esri 2016
 
 * Cálculo de los desniveles por tramo y tiempo por tramo en bici
 	* Apoyandonos en el MDT asignamos coordenadas Z a los puntos final e inicial de cada tramo
-	* Desnivel Zf- Zi
+	* Desnivel (Zfinal - Zinicial)
 	* Clasificación en rangos según Desnivel
 	* Asignación de Velocidad según inclinación
 * Creación de la feature class de los puntos de interés
@@ -90,9 +88,10 @@ Proyecto Final de Master de Esri 2016
 ##Creacion del Network
 
 * Definimos atributos:
+	* Jerarquía 
 	* Coste
 	* Restricción
-	* Jerarquía 
+
 
 ![network](images/network.png)
 
@@ -104,7 +103,7 @@ Proyecto Final de Master de Esri 2016
 
 * Scripts de python
 	* Cáclulo de rutas
-	* Busqueda de POIs cercanos
+	* Búsqueda de POIs cercanos
 
 --
 
@@ -146,10 +145,10 @@ Proyecto Final de Master de Esri 2016
 * BBDD Corporativa
 	* Create Enterprise GDB
 	* Versionado: Controlar ediciones
-		* Versión default: Controla Ediciones
-		* Versión Publica: Sobre la que se publicará el servicio
+		* Versión default: Controla las ediciones
+		* Versión Pública: Sobre la que se publicará el servicio
 	* SQL Server Manager
-		* Crear Usuario con permisos de edicioón
+		* Crear usuario con permisos de edición
 		* Conectado a la versión pública
 
 ---
@@ -177,7 +176,7 @@ Proyecto Final de Master de Esri 2016
 
 ##Objetivos
 
-* Aplicación sencilla
+* Aplicación social
 * Fácil de usar
 * Diseño atractivo
 
@@ -226,9 +225,15 @@ https://github.com/tomwayson/web-appbuilder-bootstrap
 
 --
 
-##Otras ediciones de la App
+##Otras ediciones de CSSs en la App
 
->Para hacer cualquier cambio de la aplicación podemos identificar el elemento a traves de la consola de google chrome y luego viendo donde se encuentra el elemento aplicarle los cambios que consideremos necesarios
+* Identificar el elemento a traves de la consola de google chrome
+* Ver dónde se encuentra el elemento 
+* aplicarle los cambios que consideremos necesarios
+
+--
+
+##Otras ediciones de CSSs en la App
 
 ![Identificando elementos con la consola](images/indentifiicandoConsolaGoogle.png)
 
@@ -236,14 +241,7 @@ https://github.com/tomwayson/web-appbuilder-bootstrap
 
 <!-- .slide: class="section" -->
 
-#Widgets
-
-##Objetivo apliciación social
-
-* Dieño:
-	* Sencillo
-	* Intuitivo
-	* Atractivo
+## Desarrollo de los widgets
 
 ---
 
@@ -282,10 +280,11 @@ https://github.com/tomwayson/web-appbuilder-bootstrap
 	 		data-dojo-attach-event="onclick:funcionParamBici" href="#bici" 
 	    	role="tab" data-toggle="tab">
 	    		<img class="hidden-xs" 
-	    		src = "http://localhost/ICONOS/icon-60693.png" alt = "Bycicle icon">
+	    		src="http://localhost/ICONOS/icon-60693.png" alt="Bycicle icon">
 	    	</a>
 	    </li>
-	    ....   
+	    .... 
+	</ul>  
 ```
 
 * Tab-panel:
@@ -301,6 +300,7 @@ https://github.com/tomwayson/web-appbuilder-bootstrap
           </label>
       </div>
       ....
+    </div>
 ```
 
 --
@@ -336,29 +336,33 @@ https://github.com/tomwayson/web-appbuilder-bootstrap
 
 --
 
-###JAVASCRIPT
+###JavaScript
 
 Ciclo de vida del widget
 
-```javascript
+```JavaScript
 
 	postCreate: function() {
+		...
 	},
 	startup: function() {
+		...
 	},
 	onOpen: function() {
+		...
 	},
 	onClose: function() {
+		...
 	}
 ```
 
 --
 
-###JAVASCRIPT
+###JavaScript
 
 Startup: Creamos capas gráficas y simbologías
 
-```javascript
+```JavaScript
    	startup: function() {
 	      this.inherited(arguments);
 	      this.graphicPuntos = new GraphicsLayer();
@@ -373,11 +377,11 @@ Startup: Creamos capas gráficas y simbologías
 
 --
 
-###JAVASCRIPT
+###JavaScript
 
-onOpem: Infowindow y funcion para pintar los puntos
+onOpen: Infowindow y función para pintar los puntos
 
-```javascript
+```JavaScript
 	
 	onOpen: function(){
         var infoWindow = new InfoWindowLite(null, domConstruct.create("div", null, null, this.map.root));
@@ -406,11 +410,11 @@ onOpem: Infowindow y funcion para pintar los puntos
 
 --
 
-###JAVASCRIPT
+###JavaScript
 
-onCLose: Evitamos que pinte elemento y limpiamos las capas gráficas
+onCLose: Evitamos que pinte elementos y limpiamos las capas gráficas
 
-```javascript
+```JavaScript
 	onClose: function(){
         this.tipoPunto = null;
         this.graphicPuntos.clear();
@@ -422,14 +426,14 @@ onCLose: Evitamos que pinte elemento y limpiamos las capas gráficas
 
 --
 
-###JAVASCRIPT
+###JavaScript
 
-Funciones definidas:
+Otras funciones definidas:
  * Función que define los parámetros del tipo de rta
  * Función que define los parámetros del tipo de punto dibujado
  * Función para borrar los puntos dibujados
 
-```javascript
+```JavaScript
 	funcionParamBici:function(){
         this.tipoRutaParam = "Bicicleta";
     },
@@ -451,12 +455,12 @@ Funciones definidas:
 
 --
 
-###JAVASCRIPT
+###JavaScript
 
-Funciones definidas:
- * Fución para el cálculo de la ruta
+Otras funciones definidas:
+ * Fución para el cálculo de la ruta (GP)
 
-```javascript
+```JavaScript
 	this.tipoPunto = null;
     this.graphicLineas.clear();
     ...
@@ -478,12 +482,12 @@ Funciones definidas:
 
 --
 
-###JAVASCRIPT
+###JavaScript
 
-Funciones definidas:
- * Fución para el cálculo de la ruta
+Otras funciones definidas:
+ * Fución para el cálculo de la ruta(Callback)
 
-```javascript
+```JavaScript
     function callBack(results){ 
 		gp.getResultData(results.jobId,"Ruta",resultsCallback);
 		function resultsCallback(featureRuta){
@@ -499,12 +503,12 @@ Funciones definidas:
 
 --
 
-###JAVASCRIPT
+###JavaScript
 
 Funciones definidas:
- * Fución para el cálculo de la ruta
+ * Qué mostrar en el infoWindow
 
-```javascript
+```JavaScript
     infoTemplate = new InfoTemplate();
 	infoTemplate.setTitle("<strong>Información de ruta</strong>");
 	infoTemplate.setContent("hello");
@@ -555,7 +559,7 @@ Funciones definidas:
 
 ##Objetivo:
 
-* Tener todo en al misma app
+* Tener todo en al misma app (facilidad de uso)
 * Restringir acceso solo a usuarios registrados
 
 --
@@ -587,30 +591,33 @@ jimu.js --> MapManager.js
 
 ##Restringir acceso solo a usuarios registrados
 
+* Demo mediante JavaScript
+
 ###html
 
 ```html
-<div id="edit"style="width:100%; height:100%; min-width:280px;min-width:240px;">
+<div id="edit" style="width:100%; height:100%; min-width:280px;min-width:240px;">
     <div id="usuarioYpassDiv">
           <label for="usuarioInput">Inicia sesion para poder editar</label>
-          <input id='usuarioInput' type="text"class = "form-control" placeholder="Usuario">
+          <input id='usuarioInput' type="text" class="form-control" placeholder="Usuario">
           <br>
-          <input id='pssInput' type="text"class = "form-control" placeholder="Contraseña">
+          <input id='pssInput' type="text" class ="form-control" placeholder="Contraseña">
           <p id="wrongPass"></p>
           <br>
           <button type="button" class="btn btn-primary" data-dojo-attach-event="onclick:funcionLogearse">Aceptar</button>
     </div>
+</div>
 ```
 
 --
 
 ##Restringir acceso solo a usuarios registrados
 
-###javascript
+###JavaScript
 
-```javascript
+```JavaScript
 
-	funcionLogearse:function(){
+	funcionLogearse: function(){
       this.inherited(arguments);
       this.userPass = ["Carlos","1234"],["Juli","123"]];
       var usuario = usuarioInput.value;
@@ -641,7 +648,7 @@ jimu.js --> MapManager.js
 
 * off-panel
 	* Tres clasificaciones
-	* Sinplificar botones
+	* Simplificar botones
 
 --
 
@@ -674,7 +681,7 @@ jimu.js --> MapManager.js
 
 ##Widget de consultas
 
-[Demo](http://jimeno0.github.io/TableQueryWidget/TableQueryWidgetApp/index.html)
+[Demo](http://jimeno0.github.io/TableQueryWidget/index.html)
 
 ![Widget consultas](images/consultasWidget.png)
 
@@ -737,7 +744,7 @@ jimu.js --> MapManager.js
 
 --
 
-###javaScript Widget
+###JavaScript Widget
 
 * Generar desplegables
 * Generar cabecera y contenido de la tabla
@@ -746,7 +753,7 @@ jimu.js --> MapManager.js
 
 --
 
-###javaScript Widget
+###JavaScript Widget
 
 ####On startup
 
@@ -755,7 +762,7 @@ jimu.js --> MapManager.js
 
 --
 
-```javascript
+```JavaScript
 startup: function() {
         //get config variables
         tableconfigParams = this.config.inPanelVar.params.tableConfigParams;
@@ -799,7 +806,7 @@ startup: function() {
 
 --
 
-###javaScript Widget
+###JavaScript Widget
 
 ####On open
 
@@ -809,11 +816,11 @@ startup: function() {
 
 --
 
-###javaScript Widget
+###JavaScript Widget
 
 Contenido de la tabla 
 
-```javascript
+```JavaScript
 
 function addColumns(fsResult){
   var features = fsResult.features;
@@ -840,11 +847,11 @@ function addColumns(fsResult){
 
 --
 
-###javaScript Widget
+###JavaScript Widget
 
 Función de las consultas
 
-```javascript
+```JavaScript
 
 	function funcionQuery2(e){
 	  var node = document.getElementById('tableContent');
@@ -863,11 +870,11 @@ Función de las consultas
 
 --
 
-###javaScript Widget
+###JavaScript Widget
 
 Función de las consultas
 
-```javascript
+```JavaScript
   function drawSelected(fs){
        
     for (i = 0; i < fs.features.length; i++) {
@@ -932,7 +939,7 @@ PANTALLAZOS FALTAN
 
 * Petición
 
-```javaScript
+```JavaScript
 var urlJson = this.serviceUrl.value+"?f=json";
 	request(urlJson, {
 	  headers: {
@@ -956,7 +963,7 @@ var urlJson = this.serviceUrl.value+"?f=json";
 
 * Inputs, labels y select
 
-```javascript
+```JavaScript
 var elementId = "id"+this._counters.counter;
 var slectId = "select"+this._counters.counter;
 var row = domConstruct.toDom('<tr id="'+elementId+'">\
@@ -984,7 +991,7 @@ var row = domConstruct.toDom('<tr id="'+elementId+'">\
 
 * Inputs, labels y select
 
-```javascript
+```JavaScript
 var nl2 = query(".selectClass",row);
 	for (i = 0; i < this._counters.fields.length; i++) { 
 	  var fieldOption =  domConstruct.toDom("<option>\
@@ -1001,7 +1008,7 @@ var nl2 = query(".selectClass",row);
 
 * Select options
 
-```javascript
+```JavaScript
 
 var nl = query(".btnDeleteClass",row);
 	var btnDelete =  domConstruct.toDom("<button>\
@@ -1028,7 +1035,7 @@ var nl = query(".btnDeleteClass",row);
 
 ####Parámetros de Servicio y tabla
 
-```javascript
+```JavaScript
 var options = this.config.inPanelVar.params;
     options.serviceUrl = this.serviceUrl.get("value");
     options.tableConfigParams = new Array();
@@ -1052,7 +1059,7 @@ var options = this.config.inPanelVar.params;
 
 ####Parámetros de menús desplegables
 
-```javascript
+```JavaScript
 for (i = 0; i < document.getElementById("querySettings").children.length; i++) {
   var rowParams = document.getElementById("querySettings").children[i];
   var rowHeaderChild = rowParams.children[1];
@@ -1082,7 +1089,7 @@ for (i = 0; i < document.getElementById("querySettings").children.length; i++) {
 
 En caso de tener la configuración a medias, grandes proyectos
 
-```javascript
+```JavaScript
 setConfig: function(config) {
 	this.config = config;
 	var options = config.inPanelVar.params;
