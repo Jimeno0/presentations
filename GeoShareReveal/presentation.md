@@ -933,7 +933,7 @@ setConfig: function(config) {
 
 * Generar desplegables
 * Generar cabecera y contenido de la tabla
-* Consultas
+* Realizar consultas
 * Función on click
 
 --
