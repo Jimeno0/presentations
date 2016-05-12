@@ -702,6 +702,8 @@ funcionLogearse: function(){
 
 [Demo](http://jimeno0.github.io/TableQueryWidget/index.html)
 
+[Repositorio](https://github.com/Jimeno0/TableQueryWidget)
+
 ![Widget consultas](images/consultasWidget.png)
 
 --
