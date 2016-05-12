@@ -1036,26 +1036,23 @@ Función de las consultas
 
 ```javascript
 
-  function funcionQuery2(e){
-    var node = document.getElementById('tableContent');
-    while (node.hasChildNodes()) {
-      node.removeChild(node.firstChild);
-    };
-    var query = new Query();
-    query.where = e;
-    query.outFields = OutFieldsArray;
-    query.returnGeometry = true;
-    var queryTask = new QueryTask(serviceUrl);
-    queryTask.execute(query,addColumns2);
-  };
-
-```
+function funciOnClick2(e){
+          that.map.graphics.clear();
+          var query2 = new Query();
+          query2.where =e;
+          query2.outFields = OutFieldsArray;
+          query2.returnGeometry = true;
+          query2.outSpatialReference = {wkid: 102100};
+          var queryTask2 = new QueryTask(serviceUrl);
+          queryTask2.execute(query2,drawSelected);
+ };
+ ```
 
 --
 
 ###JavaScript Widget
 
-Función de las consultas
+Función para dibujar los elementos
 
 ```javascript
   function drawSelected(fs){
@@ -1085,6 +1082,29 @@ Función de las consultas
       that.map.graphics.add(graphicElemnts);
     };
   };
+```
+
+--
+
+###JavaScript Widget
+
+Función de las consultas
+
+```javascript
+
+  function funcionQuery2(e){
+    var node = document.getElementById('tableContent');
+    while (node.hasChildNodes()) {
+      node.removeChild(node.firstChild);
+    };
+    var query = new Query();
+    query.where = e;
+    query.outFields = OutFieldsArray;
+    query.returnGeometry = true;
+    var queryTask = new QueryTask(serviceUrl);
+    queryTask.execute(query,addColumns2);
+  };
+
 ```
 
 ---
