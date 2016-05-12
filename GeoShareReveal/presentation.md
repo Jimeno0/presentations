@@ -9,6 +9,36 @@ Slides : [bit.ly/GeoSharePPT](http://bit.ly/GeoSharePPT)
 
 ---
 
+<!-- .slide: class="title" -->
+
+
+
+## Carlos Pérez Jimeno
+
+
+
+>Estudié Ingeniería Técnica porque me apasionan los mapas. Ahí descubrí el GIS y las posibilidades que ofrecía. Cursé el Master GIS de Esri España 2016 y desde entonces trato de aprender todo lo posible del geodesarrollo.
+
+
+
+>Presento la primera aplicación que desarrollé con apenas dos meses de conocimiento en programación.
+
+> Anímate a desarrollar! :)
+
+
+
+Información de contacto:
+
+
+
+* GitHub : [Jimeno0](https://github.com/Jimeno0)
+
+* Linkedin: [Carlos Pérez Jimeno](https://www.linkedin.com/in/carlos-perez-jimeno-087b3390?trk=nav_responsive_tab_profile_pic)
+
+* Twitter: [Jimeno0](https://twitter.com/jimeno0)
+
+---
+
 <!-- .slide: class="section" -->
 
 ## Introducción a la App
