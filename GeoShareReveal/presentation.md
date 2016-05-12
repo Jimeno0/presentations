@@ -98,6 +98,8 @@ Proyecto Final de Master de Esri 2016
 
 ---
 
+<!-- .slide: class="section" -->
+
 ##Geoprocesamientos
 
 * Scripts de python
@@ -137,6 +139,8 @@ Proyecto Final de Master de Esri 2016
 
 ---
 
+<!-- .slide: class="section" -->
+
 ##Arquitectura y versionado
 
 * BBDD Corporativa
@@ -150,6 +154,8 @@ Proyecto Final de Master de Esri 2016
 
 ---
 
+<!-- .slide: class="section" -->
+
 ##Publicación de los servicios
 
 * ArcGIS Server
@@ -161,9 +167,13 @@ Proyecto Final de Master de Esri 2016
 
 ---
 
+<!-- .slide: class="section" -->
+
 #Desarrollo de la app
 
 ---
+
+<!-- .slide: class="section" -->
 
 ##Objetivos
 
@@ -172,6 +182,8 @@ Proyecto Final de Master de Esri 2016
 * Diseño atractivo
 
 ---
+
+<!-- .slide: class="section" -->
 
 ##Integración de Bootstrap en Web AppBuilder
 
@@ -198,6 +210,8 @@ https://github.com/tomwayson/web-appbuilder-bootstrap
 
 ---
 
+<!-- .slide: class="section" -->
+
 ##Simplificación de la app
 
 >* A través del config.json
@@ -220,6 +234,8 @@ https://github.com/tomwayson/web-appbuilder-bootstrap
 
 ---
 
+<!-- .slide: class="section" -->
+
 #Widgets
 
 ##Objetivo apliciación social
@@ -230,6 +246,8 @@ https://github.com/tomwayson/web-appbuilder-bootstrap
 	* Atractivo
 
 ---
+
+<!-- .slide: class="section" -->
 
 ##Widgets de geoprocesamiento
 
@@ -269,6 +287,7 @@ https://github.com/tomwayson/web-appbuilder-bootstrap
 	    </li>
 	    ....   
 ```
+
 * Tab-panel:
 
 
@@ -293,21 +312,22 @@ https://github.com/tomwayson/web-appbuilder-bootstrap
 * Inicio & final
 
 ```HTML
-<div id=inicioDiv>
-	<button type="button" class="btn btn-default" data-dojo-attach-event="onclick:funcionCapaInicio">
-    	<span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>
-    	Inicio
-    </button>
-    <button type="button" class="btn btn-link" data-dojo-attach-event="onclick:funcionBorrar">
-    	Borrar
-    </button>
-</div>
+	<div id="inicioDiv">
+		<button type="button" class="btn btn-default" data-dojo-attach-event="onclick:funcionCapaInicio">
+	    	<span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>
+	    	Inicio
+	    </button>
+	    <button type="button" class="btn btn-link" data-dojo-attach-event="onclick:funcionBorrar">
+	    	Borrar
+	    </button>
+	</div>
   ....
 ```
+
 * Calcular
 
 ```HTML
-    <div id= calculoDiv>
+    <div id="calculoDiv">
           <button type="button" class="btn btn-primary" data-dojo-attach-event="onclick:funcionCalcular">
             Calcular
           </button>
@@ -525,6 +545,8 @@ Funciones definidas:
 
 ---
 
+<!-- .slide: class="section" -->
+
 ##Widget de edición
 
 ![Widget edición](images/editionWidget.png)
@@ -607,6 +629,8 @@ jimu.js --> MapManager.js
 
 ---
 
+<!-- .slide: class="section" -->
+
 ##Widget de leyenda
 
 ![Widget leyenda](images/widgetsColocados.png)
@@ -645,6 +669,8 @@ jimu.js --> MapManager.js
 ```
 
 ---
+
+<!-- .slide: class="section" -->
 
 ##Widget de consultas
 
