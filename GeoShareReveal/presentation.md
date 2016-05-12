@@ -690,32 +690,202 @@ jimu.js --> MapManager.js
 
 ##Widget de consultas
 
-* Código del widget: On open
-
-	![onOpen screen](images/onOpenQueryWidget.png)
-
---
-
-##Widget de consultas
-
-* Código del widget: On click
-
-	![onClick screen](images/onRowClickQueryWidget.png)
-
---
-
-##Widget de consultas
-
-* Código del widget: Querys dropdown menus 
-
-	![dropdown menus](images/dropdownQueryWidget.png)
-
---
-
-##Widget de consultas
-
-* Código del settings
+* Estableciendo los settings
 	![Settings screen](images/settingConfigQieryWidget.png)
+
+--
+
+###Settings del widget de consultas
+
+* Petición Ajax con Dojo
+* Crear html
+* getConfig (Almacenar parámetros)
+* setConfig (parámetros durante setting)
+
+--
+
+###Petición Ajax empleando Dojo
+
+* Añadir propiedad al widget
+
+```html
+<input
+    type="text"
+    data-dojo-type="dijit/form/ValidationTextBox"
+    required="true"
+    placeHolder="http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/0"
+    data-dojo-attach-point="serviceUrl"
+    data-dojo-props='style:{width:"520px"}'
+/>
+```
+
+--
+
+###Petición Ajax empleando Dojo 
+
+* Petición
+
+```JavaScript
+var urlJson = this.serviceUrl.value+"?f=json";
+	request(urlJson, {
+	  headers: {
+	    "X-Requested-With": null
+	  }
+	}).then(
+	  function(text){
+	    var jsonObjet = JSON.parse(text);
+	   that._counters.fields = jsonObjet.fields;
+	   that.functAddRow();         
+	  },
+	  function(error){
+	    console.log("An error occurred: " + error);
+	  }
+	);
+```
+
+--
+
+####Creación de html dinámico con Dojo
+
+* Inputs, labels y select
+
+```JavaScript
+var elementId = "id"+this._counters.counter;
+var slectId = "select"+this._counters.counter;
+var row = domConstruct.toDom('<tr id="'+elementId+'">\
+                                <td>\
+                                  Column header:\
+                                </td>\
+                                <td>\
+                                  <input>\
+                                </td>\
+                                <td>\
+                                  Column header:\
+                                </td>\
+                                <td>\
+                                  <select class="selectClass">\
+                                  </select>\
+                                </td>\
+                                <td class="btnDeleteClass">\
+                                </td>\
+                              </tr>');
+```
+
+--
+
+####Creación de html dinámico con Dojo
+
+* Inputs, labels y select
+
+```JavaScript
+var nl2 = query(".selectClass",row);
+	for (i = 0; i < this._counters.fields.length; i++) { 
+	  var fieldOption =  domConstruct.toDom("<option>\
+	                                           "+this._counters.fields[i].name+"\
+	                                         </option>");
+	  nl2[0].appendChild(fieldOption);
+	};               
+
+```
+
+--
+
+####Creación de html dinámico con Dojo
+
+* Select options
+
+```JavaScript
+
+var nl = query(".btnDeleteClass",row);
+	var btnDelete =  domConstruct.toDom("<button>\
+	                                       Delete\
+	                                     </button>");
+
+	on(btnDelete, "click", functDeleteRow);
+	this._counters.counterQMenu++;
+	document.getElementById("columnsSettings").appendChild(row);
+	nl[0].appendChild(btnDelete);
+```
+
+--
+
+####Establecer los parámetros
+
+* getConfig
+
+	* Parámetros del servicio
+	* Parámetros de la tabla
+	* Parámetros de los desplegables
+
+--
+
+####Parámetros de Servicio y tabla
+
+```JavaScript
+var options = this.config.inPanelVar.params;
+    options.serviceUrl = this.serviceUrl.get("value");
+    options.tableConfigParams = new Array();
+    options.queryConfigParams = new Array();
+    // Save header and content for each column
+    for (i = 0; i < document.getElementById("columnsSettings").children.length; i++) {
+      var rowParams = document.getElementById("columnsSettings").children[i];
+      var rowHeaderChild = rowParams.children[1];
+      var rowFieldChild = rowParams.children[3];
+      var headerName = rowHeaderChild.children[0].value;
+      var fieldName = rowFieldChild.children[0].value;
+      tableParams[i] = {
+        header:headerName,
+        fieldName:fieldName
+      };
+    options.tableConfigParams[i] = tableParams[i];
+     };
+```
+
+--
+
+####Parámetros de menús desplegables
+
+```JavaScript
+for (i = 0; i < document.getElementById("querySettings").children.length; i++) {
+  var rowParams = document.getElementById("querySettings").children[i];
+  var rowHeaderChild = rowParams.children[1];
+  var headerName = rowHeaderChild.children[0].value;
+  var  queryliParams = new Array();
+  //Go over the table and save each query and query label for each dropdown button
+  for (n = 0; n < rowParams.children[4].children[0].children.length; n++) {
+    var rowLi = rowParams.children[4].children[0].children[n];
+    var rowNameli = rowLi.children[1].children[0].value;
+    var rowQuery = rowLi.children[3].children[0].value;
+    queryliParams[n] = {
+      liName:rowNameli,
+      query:rowQuery
+    };
+  };
+  queryParams[i] = {
+    buttonName:headerName,
+    liParamsArray:queryliParams
+  };
+  options.queryConfigParams[i] = queryParams[i];
+};
+```
+
+--
+
+####setConfig
+
+En caso de tener la configuración a medias, grandes proyectos
+
+```JavaScript
+setConfig: function(config) {
+	this.config = config;
+	var options = config.inPanelVar.params;
+	// Load service URL if exisits
+	if (options && options.serviceUrl) {
+	    this.serviceUrl.set('value', options.serviceUrl);
+	};
+	return this.config;
+	},
+```
 
 --
 
@@ -902,203 +1072,6 @@ Función de las consultas
       that.map.graphics.add(graphicElemnts);
     };
   };
-```
-
---
-
-###Settings del widget de consultas
-
-* Petición Ajax con Dojo
-* Crear html
-* getConfig (Almacenar parámetros)
-* setConfig (parámetros durante setting)
-
-PANTALLAZOS FALTAN
-
---
-
-###Petición Ajax empleando Dojo
-
-* Añadir propiedad al widget
-
-```html
-<input
-    type="text"
-    data-dojo-type="dijit/form/ValidationTextBox"
-    required="true"
-    placeHolder="http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/0"
-    data-dojo-attach-point="serviceUrl"
-    data-dojo-props='style:{width:"520px"}'
-    value ="http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/0"
-/>
-```
-
---
-
-###Petición Ajax empleando Dojo 
-
-* Petición
-
-```JavaScript
-var urlJson = this.serviceUrl.value+"?f=json";
-	request(urlJson, {
-	  headers: {
-	    "X-Requested-With": null
-	  }
-	}).then(
-	  function(text){
-	    var jsonObjet = JSON.parse(text);
-	   that._counters.fields = jsonObjet.fields;
-	   that.functAddRow();         
-	  },
-	  function(error){
-	    console.log("An error occurred: " + error);
-	  }
-	);
-```
-
---
-
-####Creación de html dinámico con Dojo
-
-* Inputs, labels y select
-
-```JavaScript
-var elementId = "id"+this._counters.counter;
-var slectId = "select"+this._counters.counter;
-var row = domConstruct.toDom('<tr id="'+elementId+'">\
-                                <td>\
-                                  Column header:\
-                                </td>\
-                                <td>\
-                                  <input>\
-                                </td>\
-                                <td>\
-                                  Column header:\
-                                </td>\
-                                <td>\
-                                  <select class="selectClass">\
-                                  </select>\
-                                </td>\
-                                <td class="btnDeleteClass">\
-                                </td>\
-                              </tr>');
-```
-
---
-
-####Creación de html dinámico con Dojo
-
-* Inputs, labels y select
-
-```JavaScript
-var nl2 = query(".selectClass",row);
-	for (i = 0; i < this._counters.fields.length; i++) { 
-	  var fieldOption =  domConstruct.toDom("<option>\
-	                                           "+this._counters.fields[i].name+"\
-	                                         </option>");
-	  nl2[0].appendChild(fieldOption);
-	};               
-
-```
-
---
-
-####Creación de html dinámico con Dojo
-
-* Select options
-
-```JavaScript
-
-var nl = query(".btnDeleteClass",row);
-	var btnDelete =  domConstruct.toDom("<button>\
-	                                       Delete\
-	                                     </button>");
-
-	on(btnDelete, "click", functDeleteRow);
-	this._counters.counterQMenu++;
-	document.getElementById("columnsSettings").appendChild(row);
-	nl[0].appendChild(btnDelete);
-```
-
---
-
-####Establecer los parámetros
-
-* getConfig
-
-	* Parámetros del servicio
-	* Parámetros de la tabla
-	* Parámetros de los desplegables
-
---
-
-####Parámetros de Servicio y tabla
-
-```JavaScript
-var options = this.config.inPanelVar.params;
-    options.serviceUrl = this.serviceUrl.get("value");
-    options.tableConfigParams = new Array();
-    options.queryConfigParams = new Array();
-    // Save header and content for each column
-    for (i = 0; i < document.getElementById("columnsSettings").children.length; i++) {
-      var rowParams = document.getElementById("columnsSettings").children[i];
-      var rowHeaderChild = rowParams.children[1];
-      var rowFieldChild = rowParams.children[3];
-      var headerName = rowHeaderChild.children[0].value;
-      var fieldName = rowFieldChild.children[0].value;
-      tableParams[i] = {
-        header:headerName,
-        fieldName:fieldName
-      };
-    options.tableConfigParams[i] = tableParams[i];
-     };
-```
-
---
-
-####Parámetros de menús desplegables
-
-```JavaScript
-for (i = 0; i < document.getElementById("querySettings").children.length; i++) {
-  var rowParams = document.getElementById("querySettings").children[i];
-  var rowHeaderChild = rowParams.children[1];
-  var headerName = rowHeaderChild.children[0].value;
-  var  queryliParams = new Array();
-  //Go over the table and save each query and query label for each dropdown button
-  for (n = 0; n < rowParams.children[4].children[0].children.length; n++) {
-    var rowLi = rowParams.children[4].children[0].children[n];
-    var rowNameli = rowLi.children[1].children[0].value;
-    var rowQuery = rowLi.children[3].children[0].value;
-    queryliParams[n] = {
-      liName:rowNameli,
-      query:rowQuery
-    };
-  };
-  queryParams[i] = {
-    buttonName:headerName,
-    liParamsArray:queryliParams
-  };
-  options.queryConfigParams[i] = queryParams[i];
-};
-```
-
---
-
-####setConfig
-
-En caso de tener la configuración a medias, grandes proyectos
-
-```JavaScript
-setConfig: function(config) {
-	this.config = config;
-	var options = config.inPanelVar.params;
-	// Load service URL if exisits
-	if (options && options.serviceUrl) {
-	    this.serviceUrl.set('value', options.serviceUrl);
-	};
-	return this.config;
-	},
 ```
 
 ---
