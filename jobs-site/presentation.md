@@ -16,41 +16,35 @@ Slides : [bit.ly/geo-dev-jobs](http://bit.ly/geo-dev-jobs)
 
 
 
->Estudié Ingeniería de Topografía porque me apasionan los mapas. Ahí descubrí el GIS y las posibilidades que ofrecía. Cursé el Master GIS de Esri España 2016 y desde entonces trato de aprender todo lo posible del geodesarrollo.
+<div>
+    <p>
+        <a href="https://github.com/jimeno0"><i class="fa fa-github" title="GitHub"></i>/jimeno0</a><br />
+        <a href="https://twitter.com/jimeno0"><i class="fa fa-twitter" title="Twitter"></i>/@jimeno0</a><br />
+        <a href="https://www.linkedin.com/in/carlos-perez-jimeno-087b3390"><i class="fa fa-linkedin" title="linkedin"></i>/Carlos Pérez Jimeno</a>
+    </p>
+</div>
 
-
-
->Presento la primera aplicación que desarrollé con apenas dos meses de conocimiento en programación.
-
->Anímate a desarrollar! :)
-
-
-
-Información de contacto:
-
-
-
-* GitHub : [Jimeno0](https://github.com/Jimeno0)
-
-* Linkedin: [Carlos Pérez Jimeno](https://www.linkedin.com/in/carlos-perez-jimeno-087b3390?trk=nav_responsive_tab_profile_pic)
-
-* Twitter: [Jimeno0](https://twitter.com/jimeno0)
 
 ---
 
 <!-- .slide: class="section" -->
 
 ## Introducción al site
+[![jobs-site](images/jobs-site-portal.png)](http://www.geodevelopers.org/jobs/)
 
 ---
 
 <!-- .slide: class="section" -->
 
-## Getting started
+## Getting started with mocks
 
-> Design with Mocs
 
 ![ventana principal](images/ventana-principal.png)
+
+--
+
+<!-- .slide: class="section" -->
+
 ![form](images/form.png)
 
 ---
@@ -81,7 +75,7 @@ var worldView = createView ("viewDiv",map,5,[-3, 40],["zoom","attribution"]);
 
 <!-- .slide: class="section" -->
 
-* Trabajando con funciones
+##Working with functions
   * Mejor estilo
   * Mayor eficiencia
 
@@ -104,13 +98,26 @@ function createSymbol (url){
 }
 
 ```
+
+--
+
+<!-- .slide: class="section" -->
+
+##Clean code
+
+```javascript
+var worldView = createView ("viewDiv",map,5,[-3, 40],["zoom","attribution"]);
+var simpsonsView = createView ("miniViewDiv",simpsonsMap,6,0,["attribution"]);
+var companyLocatView = createView ("viewLocDiv",companyLocatMap,5,[-3, 40]);
+```
+
 ---
 
 <!-- .slide: class="section" -->
 
-##Trabajando con las peticiones
+##Working with requests
 
-* Peticiones: DDBB & SimpsonsPOIs
+* DDBB & SimpsonsPOIs
 
 ```javascript
 
@@ -135,7 +142,9 @@ $.getJSON("/api/jobs?callback=?", function(datos){
 
 <!-- .slide: class="section" -->
 
-## Obteniendo random  simpsons POIs par alas ofertas en remoto
+##Getting random Simpsons POIs locations
+
+from a json to locate remote offers
 
 ```javascript
 
@@ -160,7 +169,7 @@ function getRandomSimpsPOIs() {
 
 <!-- .slide: class="section" -->
 
-##Comprobar que estan listas las views
+##Check that the views are ready
 
 ```javascript
 function checkViewsThenDraw () {
@@ -181,7 +190,7 @@ function checkViewsThenDraw () {
 
 <!-- .slide: class="section" -->
 
-##Una vez cargadas las views dibujamos los puntos en los mapas
+##Then draw the locations on the map
 
 ```javascript
 function drawPoints(){
@@ -236,14 +245,14 @@ function drawPoints(){
   } 
 }
 ```
+
 ---
 
 <!-- .slide: class="section" -->
 
-##Como cambiar entre vistas?
+##Change between views
 
 ```javascript
-
 var chngViewBtn = dom.byId('chngViewBtn');
 on(chngViewBtn, "click",changeViews);
 
@@ -267,11 +276,11 @@ function changeViews(callback){
 
 <!-- .slide: class="section" -->
 
-##Generación del acordeón de las ofertas de trabajo
+##Job offers bootstrap accordion
 
-* Utilizo [jsrender](https://www.jsviews.com/)
+* Use [jsrender](https://www.jsviews.com/)
   * `template`
-  * Contenido
+  * Content
   * target
 
 ```javascript
@@ -285,10 +294,10 @@ $("#accordion").html(htmlOutput);
 
 <!-- .slide: class="section" -->
 
-##Plantilla
+##Template
 
-* html dentro de un `<script>`
-* Las propiedades del objeto a renderizar se llaman así `{{:title}}`
+* `html` template inside a `<script>`
+* Calling objet properties to renderize with `{{:title}}`
 
 ```javascript
 <script id="theTmpl" type="text/x-jsrender">
