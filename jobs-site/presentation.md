@@ -10,6 +10,15 @@ Slides : [bit.ly/geo-dev-jobs](http://bit.ly/geo-dev-jobs)
 
 <!-- .slide: class="section" -->
 
+#ToDo
+
+* Template, no pinta bien el codigo de la plantilla de renderizado
+
+
+
+---
+
+<!-- .slide: class="section" -->
 
 
 ## Carlos Pérez Jimeno
@@ -56,7 +65,6 @@ Slides : [bit.ly/geo-dev-jobs](http://bit.ly/geo-dev-jobs)
 * Diferentes metodologías con la API 4.0
 
 ```javascript
-
 var map = new Map({
   basemap: "streets-night-vector"
 });
@@ -68,7 +76,6 @@ var simpsonsMap = new WebMap({
 });
 
 var worldView = createView ("viewDiv",map,5,[-3, 40],["zoom","attribution"]);
-
 ```
 
 --
@@ -296,10 +303,53 @@ $("#accordion").html(htmlOutput);
 
 ##Template
 
-* `html` template inside a `<script>`
+* `html` template inside a `<script id="theTmpl" type="text/x-jsrender">`
 * Calling objet properties to renderize with `{{:title}}`
 
+```html
+<div>
+  <div class="panel panel-default">
+    <div id="heading-{{:id}}" class="panel-heading" role="tab" >
+      <h4 class="panel-title">
+        <a id="link2Collapse-{{:id}}"  data-toggle="collapse" data-parent="#accordion"  href="#collapse-{{:id}}" aria-expanded="true" aria-controls="collapseOne">
+          <h4>{{:title}}</h4>
+        </a>
+      </h4>
+    </div>
+    <div id="collapse-{{:id}}" job-id="{{:id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+      <h5 class="text-primary" >Información de contacto</h5>
+      <span class="text-primary">Empresa: </span>
+      {{:company_name}}
+      <br>
+      <span class="text-primary">Email:  </span>
+      {{:contact_email}}
+      <br>
+      <span class="text-primary">Otra información: </span>
+      {{:contact_other}}
+      <br>
+      <h5 class="text-primary" >Detalles de la oferta</h5>
+      <span class="text-primary">Tipo de contrato: </span>
+      {{:contract_type}}
+      <br>
+      <span class="text-primary">Salario: </span>
+      {{:salary_budget}}
+      <br>
+      <span class="text-primary">Detalles: </span>
+      {{:offer_details}}
+      <br>
+      <br>
+      <span class="text-primary">Localización: </span>
+      {{:location}}
+      <br>      
+    </div>
+  </div>
+</div>
+
+```
+
+
 ```javascript
+
 <script id="theTmpl" type="text/x-jsrender">
   <div>
     <div class="panel panel-default">
@@ -346,9 +396,9 @@ $("#accordion").html(htmlOutput);
 
 <!-- .slide: class="section" -->
 
-##Contenido
+##Content
 
-* `json` que nos devuelve la petición `Ajax` a la BBDD
+* `json` response of the `Ajax` request to the BBDD
 
 ```javascript
 GEODEV.jobs.data = datos;
@@ -379,9 +429,67 @@ $("#accordion").html(htmlOutput);
 ##GoTo & highlight selected
 * Al seleccionar algun elemento del acrodeon
 
---
+```javascript
+
+$(GEODEV.jobs.prevJobShow).collapse('hide');
+
+var idJob = parseInt(e.target.getAttribute("job-id"));
+var simpsonsViewGraphic = simpsonsView.graphics.items;
+var worldViewGraphic = worldView.graphics.items;
+
+var isInWorldView = worldViewGraphic.find(isInView);
+var isInSimpsonsView = simpsonsViewGraphic.find(isInView);
+function isInView (lyr){
+  return lyr.attributes.id=== idJob;
+}
+
+if (isInWorldView) {
+  isInWorldView.symbol = highlightedSymbol;
+  worldView.goTo({
+      target: isInWorldView.geometry,
+      zoom: 8
+    },
+    {
+      animate: true,
+      duration: 1000,
+      easing: "ease-in-out"
+  });
+
+} else {
+  isInSimpsonsView.symbol = highlightedSymbolSimps;
+  simpsonsView.goTo({
+      target: isInSimpsonsView.geometry
+    },
+    {
+      animate: true,
+      duration: 1000,
+      easing: "ease-in-out"
+  });
+}
+
+//Getting the element to collapse when another accordion is been opened
+var prevJobShow = $("#" + e.target.getAttribute("id"));
+GEODEV.jobs.prevJobShow = prevJobShow[0];
+
+} catch(e){
+console.log("goTo and highlight target symbol disabled because of: " + e); 
+}
+});
+
+
+```
+
+---
+
+<!-- .slide: class="section" -->
+
+##Form
+
+---
 
 <!-- .slide: class="questions centered" -->
+
+___
 
 ## Questions?
 

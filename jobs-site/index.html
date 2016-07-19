@@ -38,7 +38,6 @@
       link.href = url;
       document.getElementsByTagName( 'head' )[0].appendChild( link );
     }
-
     if (window.location.search.match( /print-pdf/gi )) {
       importCSS('../reveal.js/css/print/pdf.css');
       importCSS('./template/print/pdf.css');
@@ -68,7 +67,6 @@
     <script src="../reveal.js/js/reveal.js"></script>
 
     <script>
-
       // Full list of configuration options available at:
       // https://github.com/hakimel/reveal.js#configuration
       Reveal.initialize({
@@ -76,22 +74,17 @@
         progress: true,
         history: true,
         center: true,
-
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
         width: 1366,
         height: 768,
-
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
-
         // Bounds for smallest/largest possible scale to apply to content
         minScale: 0.2,
         maxScale: 1.5,
-
         transition: 'slide', // none/fade/slide/convex/concave/zoom
-
         // Optional reveal.js plugins
         dependencies: [
         { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
@@ -102,7 +95,6 @@
         { src: '../reveal.js/plugin/notes/notes.js', async: true }
         ]
       });
-
     </script>
 
   </body>
