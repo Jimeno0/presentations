@@ -14,7 +14,9 @@ Slides : [bit.ly/geo-dev-jobs](http://bit.ly/geo-dev-jobs)
 
 * Template, no pinta bien el codigo de la plantilla de renderizado
 
+* Explicar GoTo & Hifhligted code
 
+* Form
 
 ---
 
@@ -489,15 +491,19 @@ console.log("goTo and highlight target symbol disabled because of: " + e);
 
 <!-- .slide: class="questions centered" -->
 
-___
 
 ## Questions?
 
 Contact info
 
-* GitHub : [Jimeno0](https://github.com/Jimeno0)
-* Linkedin: [Carlos Pérez Jimeno](https://www.linkedin.com/in/carlos-perez-jimeno-087b3390?trk=nav_responsive_tab_profile_pic)
-* Twitter: [Jimeno0](https://twitter.com/jimeno0)
+<div>
+    <p>
+        <a href="https://github.com/jimeno0"><i class="fa fa-github" title="GitHub"></i>/jimeno0</a><br />
+        <a href="https://twitter.com/jimeno0"><i class="fa fa-twitter" title="Twitter"></i>/@jimeno0</a><br />
+        <a href="https://www.linkedin.com/in/carlos-perez-jimeno-087b3390"><i class="fa fa-linkedin" title="linkedin"></i>/Carlos Pérez Jimeno</a><br />
+        <a href="mailto:carlospj@icloud.com"><i class="fa fa-envelope" title="linkedin"></i>/carlospj@icloud.com</a>
+    </p>
+</div>
 
 
 ---
