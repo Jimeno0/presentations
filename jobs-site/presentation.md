@@ -485,7 +485,223 @@ console.log("goTo and highlight target symbol disabled because of: " + e);
 
 <!-- .slide: class="section" -->
 
-##Form
+#Form
+
+---
+
+<!-- .slide: class="section" -->
+
+##Show/hide form
+
+```javascript
+
+$('.toggle').click(function(){
+  var target = $(this).attr('href');
+  $(target).toggle(500);
+  $(target)[0].reset();
+});
+
+```
+
+---
+
+<!-- .slide: class="section" -->
+
+##Autocomplete [typeahead + bloodhound](https://twitter.github.io/typeahead.js/examples/)
+
+* Bloodhound
+
+```javascript
+var companies = new Bloodhound({
+  datumTokenizer: function(datum) {
+    return Bloodhound.tokenizers.whitespace(datum.value);
+  },
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  remote: {
+    url: 'https://autocomplete.clearbit.com/v1/companies/suggest?query=%QUERY',
+    filter: function(companies) {
+      // Map the remote source JSON array to a JavaScript object array
+      return $.map(companies, function(company) {
+        return {
+          value: company.name
+        };
+      });
+    }
+  }
+});
+```
+
+--
+
+* Initialize the Bloodhound suggestion engine
+* Instantiate the Typeahead UI
+
+```javascript
+companies.initialize();
+
+$('.typeahead').typeahead(null, {
+  displayKey: 'value',
+  source: companies.ttAdapter()
+});
+```
+
+---
+
+<!-- .slide: class="section" -->
+
+##Search widget
+
+* create search widget
+* Change widget icon
+* start widget
+* On start serach clear graphics and get the address
+* add widget to the UI
+
+--
+
+
+```javascript
+var searchWidget = new Search({
+  view: companyLocatView
+});
+
+searchWidget.sources.items[0].resultSymbol = highlightedSymbol;
+
+searchWidget.startup();
+
+searchWidget.viewModel.on("search-start", function(evt){
+  companyLocatView.graphics.removeAll();
+  evt.target.popupOpenOnSelect = false;
+  GEODEV.jobs.address = evt.target.currentSuggestion.text;
+});
+
+companyLocatView.ui.add(searchWidget, {
+  position: "top-right"
+});
+
+```
+
+---
+
+<!-- .slide: class="section" -->
+
+##Draw graphics
+
+```javascript
+
+companyLocatView.on("click", function(evt){
+  if (companyLocatView.graphics.items[0]) {
+    companyLocatView.graphics.removeAll();
+  }else {
+  }
+  companyLocatView.graphics.add(createGraphic(evt.mapPoint));
+});
+```
+
+---
+
+<!-- .slide: class="section" -->
+
+##show/hide form map
+
+```javascript
+$('#selOnRemote').on('change', function() {
+  if ($('#selOnRemote').val() === 'yes') {
+    $("#inputAddressDiv").hide();
+  } else {
+    $("#inputAddressDiv").show();
+  }       
+});
+```
+
+---
+
+<!-- .slide: class="section" -->
+
+##Submit form
+
+* `required` inputs tag only works with `form.submit()`
+* Prevent default: Do not close the window neigther print the json response 
+* Check job type (if is on remote)
+* Check if location is settled
+* Check if address is settled
+* Send and close form
+
+--
+
+##Prevent defaults
+
+* Prevent default `submit()` behavoir
+* Both `preventDefault()` and set `return false` works
+
+```javascript
+
+$form.submit(function(event){
+  event.preventDefault();
+
+  ...
+
+  return false;
+});         
+```
+
+--
+
+##Check if location is settled
+
+```javascript
+
+if (GEODEV.jobs.companyLocatView.graphics.items[0]) {
+  var location = GEODEV.jobs.companyLocatView.graphics.items[0].geometry; 
+}else{  
+  return $("#warningMsng").html("Introduce una localización");
+}
+
+```
+
+--
+
+##Check if address is settled
+
+```javascript
+if (address) {
+  $('#inputAddress').val(address);
+  submitFormAndClose();
+}else{
+  console.log("hay que hacer reverse geocoder");
+  var lat = location.latitude.toString();
+  var long = location.longitude.toString();
+  var urlGeoCoder = "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?f=pjson&location="+long+","+lat;
+  $.getJSON(urlGeoCoder, function(data){
+    if (data.address) {
+      $('#inputAddress').val(data.address.Match_addr);
+    }else{
+      $('#inputAddress').val(long+","+lat);
+    }
+    submitFormAndClose();
+  });
+}
+```
+
+--
+
+##Submit and close
+
+* Compile form and send: `.serialize()`
+* End ponit at `form.action` attribute
+* To hide the form `.toggle()`
+
+```javascript
+
+function submitFormAndClose(){
+  $.post($form.attr('action'), $form.serialize(), function(response){
+    console.log(response);
+    $form.toggle(500);
+  },'json');
+}
+```
+
+
 
 ---
 
