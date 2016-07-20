@@ -1,4 +1,4 @@
-<!-- .slide: class="title" -->
+<!-- .slide: class="questions" -->
 
 ## How to: Geo-Developers Jobs site
 
@@ -6,34 +6,28 @@
 
 Slides : [bit.ly/geo-dev-jobs](http://bit.ly/geo-dev-jobs)
 
----
-
-<!-- .slide: class="section" -->
-
-#ToDo
-
-* Template, no pinta bien el codigo de la plantilla de renderizado
-
-* Explicar GoTo & Hifhligted code
-
-* Form
-
----
-
-<!-- .slide: class="section" -->
-
-
-## Carlos Pérez Jimeno
-
-
+___
 
 <div>
+    <p>Carlos Pérez Jimeno</p>
     <p>
-        <a href="https://github.com/jimeno0"><i class="fa fa-github" title="GitHub"></i>/jimeno0</a><br />
-        <a href="https://twitter.com/jimeno0"><i class="fa fa-twitter" title="Twitter"></i>/@jimeno0</a><br />
-        <a href="https://www.linkedin.com/in/carlos-perez-jimeno-087b3390"><i class="fa fa-linkedin" title="linkedin"></i>/Carlos Pérez Jimeno</a>
+    <img src="images/fotoB-N.jpg" alt="Me" height="12%" width="12%" style="border-radius:50%;"><br>
+        <a href="https://github.com/jimeno0"><i class="fa fa-github" title="GitHub"></i>/jimeno0</a> |
+        <a href="https://twitter.com/jimeno0"><i class="fa fa-twitter" title="Twitter"></i>/@jimeno0</a> | 
+        <a href="https://www.linkedin.com/in/carlos-perez-jimeno-087b3390"><i class="fa fa-linkedin" title="linkedin"></i>/Carlos Pérez Jimeno</a> | 
+        <a href="mailto:carlospj@icloud.com"><i class="fa fa-envelope" title="linkedin"></i>/carlospj@icloud.com</a>
     </p>
 </div>
+
+---
+
+<!-- .slide: class="section" -->
+
+##Goals
+
+* Introduce the Geo-Developers jobs site
+* Show how the code works
+* Get code and usability feedback 
 
 
 ---
@@ -54,7 +48,6 @@ Slides : [bit.ly/geo-dev-jobs](http://bit.ly/geo-dev-jobs)
 
 --
 
-<!-- .slide: class="section" -->
 
 ![form](images/form.png)
 
@@ -82,8 +75,6 @@ var worldView = createView ("viewDiv",map,5,[-3, 40],["zoom","attribution"]);
 
 --
 
-<!-- .slide: class="section" -->
-
 ##Working with functions
   * Mejor estilo
   * Mayor eficiencia
@@ -110,7 +101,6 @@ function createSymbol (url){
 
 --
 
-<!-- .slide: class="section" -->
 
 ##Clean code
 
@@ -149,8 +139,6 @@ $.getJSON("/api/jobs?callback=?", function(datos){
 
 --
 
-<!-- .slide: class="section" -->
-
 ##Getting random Simpsons POIs locations
 
 from a json to locate remote offers
@@ -176,8 +164,6 @@ function getRandomSimpsPOIs() {
 
 --
 
-<!-- .slide: class="section" -->
-
 ##Check that the views are ready
 
 ```javascript
@@ -196,8 +182,6 @@ function checkViewsThenDraw () {
 ```
 
 --
-
-<!-- .slide: class="section" -->
 
 ##Then draw the locations on the map
 
@@ -301,8 +285,6 @@ $("#accordion").html(htmlOutput);
 
 --
 
-<!-- .slide: class="section" -->
-
 ##Template
 
 * `html` template inside a `<script id="theTmpl" type="text/x-jsrender">`
@@ -323,80 +305,14 @@ $("#accordion").html(htmlOutput);
       <span class="text-primary">Empresa: </span>
       {{:company_name}}
       <br>
-      <span class="text-primary">Email:  </span>
-      {{:contact_email}}
-      <br>
-      <span class="text-primary">Otra información: </span>
-      {{:contact_other}}
-      <br>
-      <h5 class="text-primary" >Detalles de la oferta</h5>
-      <span class="text-primary">Tipo de contrato: </span>
-      {{:contract_type}}
-      <br>
-      <span class="text-primary">Salario: </span>
-      {{:salary_budget}}
-      <br>
-      <span class="text-primary">Detalles: </span>
-      {{:offer_details}}
-      <br>
-      <br>
-      <span class="text-primary">Localización: </span>
-      {{:location}}
-      <br>      
+          <!--   ......   -->
     </div>
   </div>
 </div>
 
 ```
 
-
-```javascript
-
-<script id="theTmpl" type="text/x-jsrender">
-  <div>
-    <div class="panel panel-default">
-      <div id="heading-{{:id}}" class="panel-heading" role="tab" >
-        <h4 class="panel-title">
-          <a id="link2Collapse-{{:id}}"  data-toggle="collapse" data-parent="#accordion"  href="#collapse-{{:id}}" aria-expanded="true" aria-controls="collapseOne">
-            <h4>{{:title}}</h4>
-          </a>
-        </h4>
-      </div>
-      <div id="collapse-{{:id}}" job-id="{{:id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-        <h5 class="text-primary" >Información de contacto</h5>
-        <span class="text-primary">Empresa: </span>
-        {{:company_name}}
-        <br>
-        <span class="text-primary">Email:  </span>
-        {{:contact_email}}
-        <br>
-        <span class="text-primary">Otra información: </span>
-        {{:contact_other}}
-        <br>
-        <h5 class="text-primary" >Detalles de la oferta</h5>
-        <span class="text-primary">Tipo de contrato: </span>
-        {{:contract_type}}
-        <br>
-        <span class="text-primary">Salario: </span>
-        {{:salary_budget}}
-        <br>
-        <span class="text-primary">Detalles: </span>
-        {{:offer_details}}
-        <br>
-        <br>
-        <span class="text-primary">Localización: </span>
-        {{:location}}
-        <br>      
-      </div>
-    </div>
-  </div>
-</script>
-
-```
-
 --
-
-<!-- .slide: class="section" -->
 
 ##Content
 
@@ -408,8 +324,6 @@ GEODEV.jobs.data = datos;
 ```
 
 --
-
-<!-- .slide: class="section" -->
 
 ##target
 
