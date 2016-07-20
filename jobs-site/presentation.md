@@ -11,7 +11,7 @@ ___
 <div>
     <p>Carlos Pérez Jimeno</p>
     <p>
-    <img src="https://github.com/Jimeno0/presentations/blob/gh-pages/jobs-site/images/FotoB-N.png" alt="Me" height="12%" width="12%" style="border-radius:50%;"><br>
+    <img src="./images/FotoB-N.png" alt="Me" height="12%" width="12%" style="border-radius:50%;"><br>
         <a href="https://github.com/jimeno0"><i class="fa fa-github" title="GitHub"></i>/jimeno0</a> |
         <a href="https://twitter.com/jimeno0"><i class="fa fa-twitter" title="Twitter"></i>/@jimeno0</a> | 
         <a href="https://www.linkedin.com/in/carlos-perez-jimeno-087b3390"><i class="fa fa-linkedin" title="linkedin"></i>/Carlos Pérez Jimeno</a> | 
