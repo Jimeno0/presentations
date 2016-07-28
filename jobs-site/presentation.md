@@ -26,7 +26,7 @@ ___
 ##Goals
 
 * Introduce the Geo-Developers jobs site
-* Show how the code works
+* Show how code works
 * Get code and usability feedback 
 
 
@@ -34,7 +34,7 @@ ___
 
 <!-- .slide: class="section" -->
 
-## Introducción al site
+## Site introduction
 [![jobs-site](images/jobs-site-portal.png)](http://www.geodevelopers.org/jobs/)
 
 ---
@@ -44,7 +44,7 @@ ___
 ## Getting started with mocks
 
 
-![ventana principal](images/ventana-principal.png)
+![main](images/ventana-principal.png)
 
 --
 
@@ -57,7 +57,7 @@ ___
 
 ##Creating webMaps 
 
-* Diferentes metodologías con la API 4.0
+* Getting use to API 4.0
 
 ```javascript
 var map = new Map({
@@ -76,8 +76,8 @@ var worldView = createView ("viewDiv",map,5,[-3, 40],["zoom","attribution"]);
 --
 
 ##Working with functions
-  * Mejor estilo
-  * Mayor eficiencia
+  * Better style
+  * More efficiency
 
 ```javascript
 
