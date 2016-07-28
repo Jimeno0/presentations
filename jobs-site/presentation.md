@@ -672,7 +672,3 @@ Contact info
 </div>
 
 
----
-
-
-<!-- .slide: class="end" -->
