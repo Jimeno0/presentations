@@ -41,7 +41,7 @@ ___
 
 <!-- .slide: class="section" -->
 
-## Getting started with mocks
+## Getting started with mockups
 
 
 ![main](images/ventana-principal.png)
@@ -117,7 +117,7 @@ var companyLocatView = createView ("viewLocDiv",companyLocatMap,5,[-3, 40]);
 ##Remote job offers
 
 * Placed in a simpsons map by [Paula Rodrigo](https://www.linkedin.com/in/paula-rodrigo-garcia-a39b5355?authType=NAME_SEARCH&authToken=Mh2I&locale=es_ES&trk=tyah&trkInfo=clickedVertical%3Amynetwork%2CclickedEntityId%3A196936461%2CauthType%3ANAME_SEARCH%2Cidx%3A1-1-1%2CtarId%3A1469692860599%2Ctas%3APaula) & [PlayGIS](https://www.linkedin.com/company/2842760?trk=prof-exp-company-name)
-* WebMap annotations cannot be drawed yet wit the API 4.0
+* WebMap annotations cannot be drawed yet with the API 4.0
 
 [![simpsonsMap.png](images/simpsonsMap.png)](https://www.maps.arcgis.com/home/webmap/viewer.html?webmap=7f3b77c3833540e49ab3b9cf3644ee7b)
 
@@ -127,7 +127,7 @@ var companyLocatView = createView ("viewLocDiv",companyLocatMap,5,[-3, 40]);
 
 * Open the Chrome inspector
 * Go to the network tab
-* Serach the POIs request
+* Search the POIs request
 * Export locations data to a json
 
 --
@@ -503,7 +503,7 @@ $('.typeahead').typeahead(null, {
 * create search widget
 * Change widget icon
 * start widget
-* On start serach clear graphics and get the address
+* On start search clear graphics and get the address
 * add widget to the UI
 
 --
@@ -663,7 +663,7 @@ function submitFormAndClose(){
 Contact info
 
 <div>
-    <p>
+    <p> 
         <a href="https://github.com/jimeno0"><i class="fa fa-github" title="GitHub"></i>/jimeno0</a><br />
         <a href="https://twitter.com/jimeno0"><i class="fa fa-twitter" title="Twitter"></i>/@jimeno0</a><br />
         <a href="https://www.linkedin.com/in/carlos-perez-jimeno-087b3390"><i class="fa fa-linkedin" title="linkedin"></i>/Carlos Pérez Jimeno</a><br />
