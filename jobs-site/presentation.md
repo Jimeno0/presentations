@@ -125,7 +125,7 @@ var companyLocatView = createView ("viewLocDiv",companyLocatMap,5,[-3, 40]);
 
 ##Solution
 
-* Open the Chrome isnpector
+* Open the Chrome inspector
 * Go to the network tab
 * Serach the POIs request
 * Export locations data to a json
@@ -351,7 +351,7 @@ $("#accordion").html(htmlOutput);
 
 ```html
 <!-- JOBS ACCORDION -->
-<div id= "jobsDiv" class="col-md-4" >
+<div id="jobsDiv" class="col-md-4" >
   <div id="accordion" role="tablist" aria-multiselectable="true" ></div>
 </div>
 ```
@@ -361,53 +361,59 @@ $("#accordion").html(htmlOutput);
 <!-- .slide: class="section" -->
 
 ##GoTo & highlight selected
-* Al seleccionar algun elemento del acrodeon
+On select any accordion element:
+* Hide previous accordion showed
+* Find selected element id on the map
+* Then redraw this element with a highlighted symbol and go to this location
 
 ```javascript
 
-$(GEODEV.jobs.prevJobShow).collapse('hide');
+$('.collapse').on('show.bs.collapse', function (e) {
 
-var idJob = parseInt(e.target.getAttribute("job-id"));
-var simpsonsViewGraphic = simpsonsView.graphics.items;
-var worldViewGraphic = worldView.graphics.items;
+  worldView.graphics.removeAll();
+  simpsonsView.graphics.removeAll();
+  drawPoints();
 
-var isInWorldView = worldViewGraphic.find(isInView);
-var isInSimpsonsView = simpsonsViewGraphic.find(isInView);
-function isInView (lyr){
-  return lyr.attributes.id=== idJob;
-}
+  $(GEODEV.jobs.prevJobShow).collapse('hide');
 
-if (isInWorldView) {
-  isInWorldView.symbol = highlightedSymbol;
-  worldView.goTo({
-      target: isInWorldView.geometry,
-      zoom: 8
-    },
-    {
-      animate: true,
-      duration: 1000,
-      easing: "ease-in-out"
-  });
+  var idJob = parseInt(e.target.getAttribute("job-id"));
+  var simpsonsViewGraphic = simpsonsView.graphics.items;
+  var worldViewGraphic = worldView.graphics.items;
 
-} else {
-  isInSimpsonsView.symbol = highlightedSymbolSimps;
-  simpsonsView.goTo({
-      target: isInSimpsonsView.geometry
-    },
-    {
-      animate: true,
-      duration: 1000,
-      easing: "ease-in-out"
-  });
-}
+  var isInWorldView = worldViewGraphic.find(isInView);
+  var isInSimpsonsView = simpsonsViewGraphic.find(isInView);
+  function isInView (lyr){
+    return lyr.attributes.id=== idJob;
+  }
 
-//Getting the element to collapse when another accordion is been opened
-var prevJobShow = $("#" + e.target.getAttribute("id"));
-GEODEV.jobs.prevJobShow = prevJobShow[0];
+  if (isInWorldView) {
+    isInWorldView.symbol = highlightedSymbol;
+    worldView.goTo({
+        target: isInWorldView.geometry,
+        zoom: 8
+      },
+      {
+        animate: true,
+        duration: 1000,
+        easing: "ease-in-out"
+    });
 
-} catch(e){
-console.log("goTo and highlight target symbol disabled because of: " + e); 
-}
+  } else {
+    isInSimpsonsView.symbol = highlightedSymbolSimps;
+    simpsonsView.goTo({
+        target: isInSimpsonsView.geometry
+      },
+      {
+        animate: true,
+        duration: 1000,
+        easing: "ease-in-out"
+    });
+  }
+
+  //Getting the element to collapse when another accordion is been opened
+  var prevJobShow = $("#" + e.target.getAttribute("id"));
+  GEODEV.jobs.prevJobShow = prevJobShow[0];
+
 });
 
 
@@ -419,11 +425,22 @@ console.log("goTo and highlight target symbol disabled because of: " + e);
 
 #Form
 
+* Objetive
+  * Create a form where companies can create their own offers 
+* First attemp: Modal
+  * If you scroll  you cant draw points correctly
+* Solution: Create a form directly in the main page with a display toggle button 
+
 ---
 
 <!-- .slide: class="section" -->
 
 ##Show/hide form
+
+```html
+<button type="button" class="btn btn-primary btn-block toggle" 
+ href="#form" id="createJobBtn">Crear oferta</button>
+```
 
 ```javascript
 
@@ -556,6 +573,7 @@ $('#selOnRemote').on('change', function() {
 * Prevent default: Do not close the window neigther print the json response 
 * Check job type (if is on remote)
 * Check if location is settled
+  * Fill hidden lat/lon inputs
 * Check if address is settled
 * Send and close form
 
