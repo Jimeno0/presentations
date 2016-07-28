@@ -114,9 +114,27 @@ var companyLocatView = createView ("viewLocDiv",companyLocatMap,5,[-3, 40]);
 
 <!-- .slide: class="section" -->
 
+##Remote job offers
+
+* Placed in a simpsons map by [Paula Rodrigo](https://www.linkedin.com/in/paula-rodrigo-garcia-a39b5355?authType=NAME_SEARCH&authToken=Mh2I&locale=es_ES&trk=tyah&trkInfo=clickedVertical%3Amynetwork%2CclickedEntityId%3A196936461%2CauthType%3ANAME_SEARCH%2Cidx%3A1-1-1%2CtarId%3A1469692860599%2Ctas%3APaula) & [PlayGIS](https://www.linkedin.com/company/2842760?trk=prof-exp-company-name)
+* WebMap annotations cannot be drawed yet wit the API 4.0
+
+![simpsonsMap.png](images/simpsonsMap.png)
+
+--
+
+##Solution
+
+* Open the Chrome isnpector
+* Go to the network tab
+* Serach the POIs request
+* Export locations data to a json
+
+--
+
 ##Working with requests
 
-* DDBB & SimpsonsPOIs
+DDBB & SimpsonsPOIs
 
 ```javascript
 
